@@ -1,17 +1,21 @@
 import React from 'react';
 import './App.css';
-import ArticleTable from "./Article/ArticleTable";
-import StoryTable from "./Story/StoryTable";
+import ArticleTable from "./components/ArticleTable";
+import ArticleForm from "./components/ArticleForm";
+// import StoryTable from "./Story/StoryTable";
+// import StoryForm from "./Story/StoryForm";
+import { DataStoreProvider } from "./context";
 
 
 function App() {
   return (
-    <div className="App">
+    <DataStoreProvider>
       <ArticleTable />
-      <div />
+      <ArticleForm />
       <br/>
-      <StoryTable />
-    </div>
+      {/*<StoryTable />*/}
+      {/*<StoryForm />*/}
+    </DataStoreProvider>
   );
 }
 
