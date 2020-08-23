@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import * as ReactBootStrap from "react-bootstrap"
 import { useObserver } from "mobx-react"
 import { useDataStore } from "../context";
-import 'mobx-react-lite/batchingForReactDom'
 
 
 const ArticleTable = () => {
   const store = useDataStore();
+  const { articles, addArticle, setArticleOrder } = store;
 
-  const { articles, addArticle } = store;
+  const [sort, setSort] = useState({ field: 'id', order: 'asc' });
 
   useEffect( () => {
     setTimeout( () => {
@@ -18,35 +18,9 @@ const ArticleTable = () => {
         }
       )
       console.log(articles)
-    }, 2000)
+    }, 5000)
   }, [addArticle, articles]);
 
-  const columns = [
-    {
-      header: 'ID',
-      accessor: 'id',
-    },
-    {
-      header: 'Name',
-      accessor: 'name',
-    },
-    {
-      header: 'Text',
-      accessor: 'text',
-    },
-    {
-      header: 'Type',
-      accessor: 'type',
-    },
-    {
-      header: 'Created',
-      accessor: 'created_at',
-    },
-    {
-      header: 'Updated',
-      accessor: 'updated_at',
-    }
-  ];
 
   const renderBodyRow = (row, index) => {
     return (
@@ -61,18 +35,27 @@ const ArticleTable = () => {
     )
   }
 
-  const renderHead = (column, index) => {
-    return (
-      <th key={`ha${index}`}>{column.header}</th>
-    )
+  const sortHandler = (field, event) => {
+    console.log(event)
+    const newSort = (field === sort.field) ?
+      { field, order: sort.order === 'asc' ? 'desc' : 'asc' } :
+      { field, order: 'asc' }
+      event.target.class = 'desc'
+    setSort(newSort)
+    setArticleOrder(newSort);
   }
 
   return useObserver(() => (
-    <ReactBootStrap.Table key="article" border="1" align="center" width="90%">
-      <thead>
-      <tr key="article-head">
-        {columns.map(renderHead)}
-      </tr>
+    <ReactBootStrap.Table className="table table-bordered table-sortable" key="articles-table">
+      <thead className="thead-light">
+        <tr key="article-head">
+          <th className="asc" key="id" onClick={e => sortHandler('id', e)}>ID</th>
+          <th className="asc" key="name">Name</th>
+          <th className="desc" key="text">Text</th>
+          <th className="" key="article_type">Type</th>
+          <th className="" key="created_at">Created</th>
+          <th className="" key="updated_at">Updated</th>
+        </tr>
       </thead>
       <tbody >
         {articles.map(renderBodyRow)}

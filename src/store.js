@@ -3,7 +3,6 @@ import { getArticles, addArticle } from "./article-service";
 import { getStories, addStory } from "./story-service";
 
 export function createStore() {
-
   return {
     articles: [
       {
@@ -14,9 +13,14 @@ export function createStore() {
     addArticle(article) {
       this.articles.unshift(article)
     },
-    stories: [],
+    stories: [
+      {
+        id: 111
+      }
+    ],
 
     addStory(story) {
+      console.log(story)
       this.stories.push(story)
     },
 
@@ -37,7 +41,7 @@ export function createStore() {
     async getStories() {
       this.isStoriesLoading = true;
       try {
-        this.articles = (await getStories());
+        this.stories = (await getStories());
       } catch (e) {
         this.setError(e);
       }
@@ -62,6 +66,17 @@ export function createStore() {
         this.setError(e);
       }
       this.isStoriesLoading = false;
+    },
+
+    articleOrder: { field: 'id', order: 'asc' },
+    storesOrder: { field: 'id', order: 'asc' },
+
+    setArticleOrder(order) {
+      this.articleOrder = order
+    },
+
+    setStoriesOrder(order) {
+      this.storesOrder = order
     },
 
 

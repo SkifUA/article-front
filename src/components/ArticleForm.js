@@ -3,8 +3,7 @@ import * as ReactBootStrap from "react-bootstrap";
 import { useDataStore } from "../context";
 
 const ArticleForm = () => {
-  const store = useDataStore();
-  const { addArticle } = store;
+  const { addArticle } = useDataStore();
   const [name, setName] = useState('')
   const [text, setText] = useState('')
   const [type, setType] = useState('')
@@ -35,8 +34,8 @@ const ArticleForm = () => {
         {name, text, type}
       )
     }
-
   }
+
   return (
     <ReactBootStrap.Form onSubmit={ e => {
       handleArticle({name, text, type});

@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import * as ReactBootStrap from "react-bootstrap";
+import { useDataStore } from "../context";
 
 const StoryForm = () => {
+  const { addStory } = useDataStore();
   const [name, setName] = useState('')
 
-  const addStory = ({name}) => {
-
+  const handleStory = ({name}) => {
+    if (name !== '') {
+      addStory({name})
+    }
   }
   return (
     <ReactBootStrap.Form onSubmit={ e => {
-      addStory({name});
+      handleStory({name});
 
       setName('');
       e.preventDefault();
