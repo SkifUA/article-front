@@ -14,7 +14,8 @@ const ArticleTable = () => {
     setTimeout( () => {
       addArticle(
         {
-          id: 2
+          id: 2,
+          name: 'Second'
         }
       )
       console.log(articles)

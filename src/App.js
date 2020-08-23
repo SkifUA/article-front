@@ -11,9 +11,11 @@ import 'mobx-react-lite/batchingForReactDom'
 function App() {
   return (
     <DataStoreProvider>
+      <h1>Articles</h1>
       <ArticleTable />
       <ArticleForm />
       <br/>
+      <h1>Stories</h1>
       <StoryTable />
       <StoryForm />
     </DataStoreProvider>

@@ -6,7 +6,8 @@ export function createStore() {
   return {
     articles: [
       {
-        id: 1
+        id: 1,
+        name: 'First'
       }
     ],
 
