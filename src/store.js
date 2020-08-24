@@ -7,6 +7,10 @@ export function createStore() {
   return {
     articles: [],
 
+    cleanArticles() {
+      this.articles.length = 0
+    },
+
     addArticle(article) {
       this.articles.unshift(article)
     },
@@ -20,10 +24,11 @@ export function createStore() {
     async getArticles() {
       this.isArticlesLoading = true;
       try {
-        await fetch(`${baseArticlesUrl}?q[sort_by_${this.articleOrder.field}]=${this.articleOrder.order}`)
+        await fetch(`${baseArticlesUrl}?orders[${this.articleOrder.field}]=${this.articleOrder.order}`)
           .then(response => response.json())
           .then(jsonResponce => {
             const data = jsonResponce.data
+            this.articles.length = 0
             this.articles.push(...data)
           })
       } catch (e) {
@@ -44,7 +49,7 @@ export function createStore() {
 
     articleOrder: { field: 'id', order: 'asc' },
 
-    setArticleOrder(order) {
+    setArticlesOrder(order) {
       this.articleOrder = order
     },
 
@@ -69,11 +74,11 @@ export function createStore() {
     async getStories() {
       this.isStoriesLoading = true;
       try {
-        await fetch(`${baseStoriesUrl}?q[sort_by_${this.storesOrder.field}]=${this.storesOrder.order}`)
+        await fetch(`${baseStoriesUrl}?orders[${this.storesOrder.field}]=${this.storesOrder.order}`)
           .then(response => response.json())
           .then(jsonResponce => {
             const data = jsonResponce.data
-            this.cleanStories()
+            this.stories.length = 0
             this.stories.push(...data)
           })
         // this.stories = (await getStories());

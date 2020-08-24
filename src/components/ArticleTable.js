@@ -1,13 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import * as ReactBootStrap from "react-bootstrap"
 import { useObserver } from "mobx-react"
 import { useDataStore } from "../context";
+import ArticleTableHead from "./ArticleTableHead";
 
 
 const ArticleTable = () => {
-  const { articles, getArticles, setArticleOrder }= useDataStore();
-
-  const [sort, setSort] = useState({ field: 'id', order: 'asc' });
+  const { articles, getArticles }= useDataStore();
 
   useEffect( () => {
     getArticles()
@@ -27,28 +26,9 @@ const ArticleTable = () => {
     )
   }
 
-  const sortHandler = (field, event) => {
-    console.log(event)
-    const newSort = (field === sort.field) ?
-      { field, order: sort.order === 'asc' ? 'desc' : 'asc' } :
-      { field, order: 'asc' }
-      event.target.class = 'desc'
-    setSort(newSort)
-    setArticleOrder(newSort);
-  }
-
   return useObserver(() => (
     <ReactBootStrap.Table className="table table-bordered table-sortable" key="articles-table">
-      <thead className="thead-light">
-        <tr key="article-head">
-          <th key="id" onClick={e => sortHandler('id', e)}>ID</th>
-          <th key="name">Name</th>
-          <th key="text">Text</th>
-          <th key="article_type">Type</th>
-          <th key="created_at">Created</th>
-          <th key="updated_at">Updated</th>
-        </tr>
-      </thead>
+      <ArticleTableHead/>
       <tbody >
         {articles.map(renderBodyRow)}
       </tbody>

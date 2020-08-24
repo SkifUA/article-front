@@ -39,35 +39,34 @@ export const headerList = [
   },
   {
     label: 'ID',
-    field: 'article_id',
+    field: 'articles.id',
     class: '',
-    key: 'story-article-id',
-    sortable: false
+    key: 'story-article-id'
   },
   {
     label: 'Name',
-    field: 'article_name',
+    field: 'articles.name',
     class: '',
     key: 'story-article-name',
     sortable: false
   },
   {
     label: 'Text',
-    field: 'article_text',
+    field: 'articles.text',
     class: '',
     key: 'story-article-text',
     sortable: false
   },
   {
     label: 'Type',
-    field: 'article_type',
+    field: 'articles.type',
     class: '',
     key: 'story-article-type',
     sortable: false
   },
   {
     label: 'Created',
-    field: 'article_created_at',
+    field: 'articles.created_at',
     class: '',
     key: 'story-article-created',
     sortable: false
@@ -85,16 +84,6 @@ export const getStories = async () => {
       console.log(res)
     })
 
-
-    // setLoading(false);
-
-  // fetch(`${baseStoriesUrl}?q[sort_by_id]=desc`)
-  // .then(response => response.json())
-  // .then(stories => {
-  //   console.log(stories.data)
-  //   setData(stories.data);
-  //   // setLoading(false);
-  // })
 }
 
 export const addStory= async (newStory) => {
