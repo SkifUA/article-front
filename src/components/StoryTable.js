@@ -19,13 +19,13 @@ function StoryTable() {
         <td>{column.name}</td>
         <td>{column.created_at}</td>
         <td>{column.updated_at}</td>
-        <td>{column.count_types}</td>
+        <td>{column.types_count}</td>
         <td>{column.articles_count}</td>
 
         <td>{column.last_article && column.last_article.id}</td>
         <td>{column.last_article && column.last_article.name}</td>
         <td>{column.last_article && column.last_article.text}</td>
-        <td>{column.last_article && column.last_article.type}</td>
+        <td>{column.last_article && column.last_article.article_type}</td>
         <td>{column.last_article && column.last_article.created_at}</td>
       </tr>
     )

@@ -11,6 +11,20 @@ export function createStore() {
       this.articles.length = 0
     },
 
+    searchName: '',
+    searchText: '',
+    searchType: '',
+
+    setSearchName(input) {
+      this.searchName = input
+    },
+    setSearchText(input) {
+      this.searchText = input
+    },
+    setSearchType(input) {
+      this.searchType = input
+    },
+
     addArticle(article) {
       this.articles.unshift(article)
     },
@@ -23,8 +37,12 @@ export function createStore() {
 
     async getArticles() {
       this.isArticlesLoading = true;
+      let url = `${baseArticlesUrl}?orders[${this.articleOrder.field}]=${this.articleOrder.order}`;
+      url += this.searchName !== '' ? '&scopes[name_cant]=' + this.searchName : '';
+      url += this.searchText !== '' ? '&scopes[text_cant]=' + this.searchText : '';
+      url += this.searchType !== '' ? '&scopes[article_type_cant]=' + this.searchType : '';
       try {
-        await fetch(`${baseArticlesUrl}?orders[${this.articleOrder.field}]=${this.articleOrder.order}`)
+        await fetch(url)
           .then(response => response.json())
           .then(jsonResponce => {
             const data = jsonResponce.data

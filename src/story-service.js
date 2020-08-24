@@ -27,7 +27,7 @@ export const headerList = [
   },
   {
     label: 'Count Types',
-    field: 'count_types',
+    field: 'types_count',
     class: '',
     key: 'story-count-types'
   },
@@ -41,7 +41,8 @@ export const headerList = [
     label: 'ID',
     field: 'articles.id',
     class: '',
-    key: 'story-article-id'
+    key: 'story-article-id',
+    sortable: false
   },
   {
     label: 'Name',

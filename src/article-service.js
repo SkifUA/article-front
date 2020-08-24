@@ -23,7 +23,7 @@ export const headerList = [
   },
   {
     label: 'Type',
-    field: 'type',
+    field: 'article_type',
     class: '',
     key: 'article-type'
   },

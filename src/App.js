@@ -5,13 +5,16 @@ import ArticleForm from "./components/ArticleForm";
 import StoryTable from "./components/StoryTable";
 import StoryForm from "./components/StoryForm";
 import { DataStoreProvider } from "./context";
-import 'mobx-react-lite/batchingForReactDom'
+import 'mobx-react-lite/batchingForReactDom';
+import ArticleSearch from "./components/ArticleSearch";
 
 
 function App() {
   return (
     <DataStoreProvider>
       <h1>Articles</h1>
+      <ArticleSearch />
+
       <ArticleTable />
       <ArticleForm />
       <br/>
