@@ -39,34 +39,35 @@ export const headerList = [
   },
   {
     label: 'ID',
-    field: 'article.id',
+    field: 'article_id',
     class: '',
-    key: 'story-article-id'
+    key: 'story-article-id',
+    sortable: false
   },
   {
     label: 'Name',
-    field: 'article.name',
+    field: 'article_name',
     class: '',
     key: 'story-article-name',
     sortable: false
   },
   {
     label: 'Text',
-    field: 'article.text',
+    field: 'article_text',
     class: '',
     key: 'story-article-text',
     sortable: false
   },
   {
     label: 'Type',
-    field: 'article.type',
+    field: 'article_type',
     class: '',
     key: 'story-article-type',
     sortable: false
   },
   {
     label: 'Created',
-    field: 'article.created_at',
+    field: 'article_created_at',
     class: '',
     key: 'story-article-created',
     sortable: false

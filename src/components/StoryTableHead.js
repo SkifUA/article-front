@@ -4,9 +4,7 @@ import { useDataStore } from "../context";
 
 
 const StoryTableHead = () => {
-  const store = useDataStore();
-
-  const { setStoriesOrder, storesOrder } = store;
+  const { setStoriesOrder, getStories } = useDataStore();
   const [heads, setHeads] = React.useState(headerList)
 
   function handleHeaders(clickedHead) {
@@ -28,7 +26,7 @@ const StoryTableHead = () => {
     });
 
     setHeads(newHeads);
-    console.log(storesOrder)
+    getStories();
   }
 
   return (

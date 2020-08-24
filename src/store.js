@@ -20,7 +20,7 @@ export function createStore() {
     async getArticles() {
       this.isArticlesLoading = true;
       try {
-        await fetch(baseArticlesUrl)
+        await fetch(`${baseArticlesUrl}?q[sort_by_${this.articleOrder.field}]=${this.articleOrder.order}`)
           .then(response => response.json())
           .then(jsonResponce => {
             const data = jsonResponce.data
@@ -69,10 +69,11 @@ export function createStore() {
     async getStories() {
       this.isStoriesLoading = true;
       try {
-        await fetch(baseStoriesUrl)
+        await fetch(`${baseStoriesUrl}?q[sort_by_${this.storesOrder.field}]=${this.storesOrder.order}`)
           .then(response => response.json())
           .then(jsonResponce => {
             const data = jsonResponce.data
+            this.cleanStories()
             this.stories.push(...data)
           })
         // this.stories = (await getStories());
