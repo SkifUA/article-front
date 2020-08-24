@@ -5,7 +5,7 @@ import {useObserver} from "mobx-react";
 import MultiSelect from "react-multi-select-component";
 
 const StoryForm = () => {
-  const { addStory, articles } = useDataStore();
+  const { addStory, articles, isStoriesLoading } = useDataStore();
   const [name, setName] = useState('')
   const [selectedArticles, setSelectedArticles] = useState([])
 
@@ -46,7 +46,11 @@ const StoryForm = () => {
           />
         </label>
       </div>
-      <button className="btn btn-primary" type="submit">
+      <button
+        className="btn btn-primary"
+        type="submit"
+        disabled={isStoriesLoading}
+      >
         Add Story
       </button>
     </ReactBootStrap.Form>

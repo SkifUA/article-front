@@ -5,20 +5,12 @@ import StoryTableHead from "./StoryTableHead";
 import { useDataStore } from "../context";
 
 function StoryTable() {
-  const { stories } = useDataStore();
 
-  // useEffect( () => {
-  //   setTimeout( () => {
-  //     getStories()
-  //     addStory(
-  //       {
-  //         id: 112
-  //       }
-  //     )
-  //     console.log(stories)
-  //   }, 2000)
-  // }, [addStory, stories, getStories]);
+  const { stories, getStories } = useDataStore();
 
+  React.useEffect( () => {
+    getStories()
+  }, [getStories]);
 
   const renderBodyRow = (column, index) => {
     return (

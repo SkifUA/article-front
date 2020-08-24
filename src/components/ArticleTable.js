@@ -5,22 +5,13 @@ import { useDataStore } from "../context";
 
 
 const ArticleTable = () => {
-  const store = useDataStore();
-  const { articles, addArticle, setArticleOrder } = store;
+  const { articles, getArticles, setArticleOrder }= useDataStore();
 
   const [sort, setSort] = useState({ field: 'id', order: 'asc' });
 
   useEffect( () => {
-    setTimeout( () => {
-      addArticle(
-        {
-          id: 2,
-          name: 'Second'
-        }
-      )
-      console.log(articles)
-    }, 5000)
-  }, [addArticle, articles]);
+    getArticles()
+  }, [getArticles]);
 
 
   const renderBodyRow = (row, index) => {
@@ -50,12 +41,12 @@ const ArticleTable = () => {
     <ReactBootStrap.Table className="table table-bordered table-sortable" key="articles-table">
       <thead className="thead-light">
         <tr key="article-head">
-          <th className="asc" key="id" onClick={e => sortHandler('id', e)}>ID</th>
-          <th className="asc" key="name">Name</th>
-          <th className="desc" key="text">Text</th>
-          <th className="" key="article_type">Type</th>
-          <th className="" key="created_at">Created</th>
-          <th className="" key="updated_at">Updated</th>
+          <th key="id" onClick={e => sortHandler('id', e)}>ID</th>
+          <th key="name">Name</th>
+          <th key="text">Text</th>
+          <th key="article_type">Type</th>
+          <th key="created_at">Created</th>
+          <th key="updated_at">Updated</th>
         </tr>
       </thead>
       <tbody >

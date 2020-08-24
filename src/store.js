@@ -1,52 +1,35 @@
 // import React from "react";
-import { getArticles, addArticle } from "./article-service";
-import { getStories, addStory } from "./story-service";
+import { addArticle, baseArticlesUrl } from "./article-service";
+import { addStory, baseStoriesUrl } from "./story-service";
 
 export function createStore() {
+
   return {
-    articles: [
-      {
-        id: 1,
-        name: 'First'
-      }
-    ],
+    articles: [],
 
     addArticle(article) {
       this.articles.unshift(article)
     },
-    stories: [
-      {
-        id: 111
-      }
-    ],
-
-    addStory(story) {
-      console.log(story)
-      this.stories.push(story)
-    },
 
     isArticlesLoading: false,
 
-    isStoriesLoading: false,
+    setIsArticlesLoading(status) {
+      this.isArticlesLoading = status
+    },
 
     async getArticles() {
       this.isArticlesLoading = true;
       try {
-        this.articles = (await getArticles());
+        await fetch(baseArticlesUrl)
+          .then(response => response.json())
+          .then(jsonResponce => {
+            const data = jsonResponce.data
+            this.articles.push(...data)
+          })
       } catch (e) {
         this.setError(e);
       }
       this.isArticlesLoading = false;
-    },
-
-    async getStories() {
-      this.isStoriesLoading = true;
-      try {
-        this.stories = (await getStories());
-      } catch (e) {
-        this.setError(e);
-      }
-      this.isStoriesLoading = false;
     },
 
     async postArticles(newArticle) {
@@ -59,6 +42,47 @@ export function createStore() {
       this.isArticlesLoading = false;
     },
 
+    articleOrder: { field: 'id', order: 'asc' },
+
+    setArticleOrder(order) {
+      this.articleOrder = order
+    },
+
+
+    // STORIES
+    stories: [],
+
+    cleanStories() {
+      this.stories.length = 0
+    },
+
+    addStory(story) {
+      this.stories.push(story)
+    },
+
+    isStoriesLoading: false,
+
+    setIsStoriesLoading(status) {
+      this.isStoriesLoading = status
+    },
+
+    async getStories() {
+      this.isStoriesLoading = true;
+      try {
+        await fetch(baseStoriesUrl)
+          .then(response => response.json())
+          .then(jsonResponce => {
+            const data = jsonResponce.data
+            this.stories.push(...data)
+          })
+        // this.stories = (await getStories());
+      } catch (e) {
+        this.setError(e);
+      }
+      this.isStoriesLoading = false;
+    },
+
+
     async postStories(newStory) {
       this.isStoriesLoading = true;
       try {
@@ -69,12 +93,7 @@ export function createStore() {
       this.isStoriesLoading = false;
     },
 
-    articleOrder: { field: 'id', order: 'asc' },
     storesOrder: { field: 'id', order: 'asc' },
-
-    setArticleOrder(order) {
-      this.articleOrder = order
-    },
 
     setStoriesOrder(order) {
       this.storesOrder = order

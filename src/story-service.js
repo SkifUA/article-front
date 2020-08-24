@@ -1,4 +1,4 @@
-// import React from "react";
+
 
 export const headerList = [
   {
@@ -73,18 +73,17 @@ export const headerList = [
   }
 ]
 
-const baseStoriesUrl = 'http://localhost:3000/stories';
+export const baseStoriesUrl = 'http://localhost:3000/stories';
 
 export const getStories = async () => {
+
   return await fetch(baseStoriesUrl)
     .then(response => response.json())
     .then(stories => {
-      console.log(stories.data)
-      return stories.data;
+      const res = stories.data
+      console.log(res)
     })
-    .catch(error => {
-      console.error(error);
-    })
+
 
     // setLoading(false);
 

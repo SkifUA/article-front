@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import * as ReactBootStrap from "react-bootstrap";
 import { useDataStore } from "../context";
+import {useObserver} from "mobx-react";
 
 const ArticleForm = () => {
-  const { addArticle } = useDataStore();
+  const { addArticle, isArticlesLoading } = useDataStore();
   const [name, setName] = useState('')
   const [text, setText] = useState('')
   const [type, setType] = useState('')
@@ -36,7 +37,7 @@ const ArticleForm = () => {
     }
   }
 
-  return (
+  return useObserver(() => (
     <ReactBootStrap.Form onSubmit={ e => {
       handleArticle({name, text, type});
       setType('');
@@ -47,26 +48,46 @@ const ArticleForm = () => {
       <div className="form-group">
         <label>
           Name
-          <input className="form-control" type="text" name="name" value={name} onChange={ e => { setName(e.target.value) } }/>
+          <input
+            className="form-control"
+            type="text" name="name"
+            value={name}
+            onChange={ e => { setName(e.target.value) } }
+          />
         </label>
       </div>
       <div className="form-group">
         <label>
           Text
-          <input className="form-control" type="text" name="text" value={text} onChange={ e => { setText(e.target.value) } }/>
+          <input
+            className="form-control"
+            type="text" name="text"
+            value={text}
+            onChange={ e => { setText(e.target.value) } }
+          />
         </label>
       </div>
       <div className="form-group">
         <label>
           Type
-          <input className="form-control" type="text" name="article-type" value={type} onChange={ e => { setType(e.target.value) } }/>
+          <input
+            className="form-control"
+            type="text"
+            name="article-type"
+            value={type}
+            onChange={ e => { setType(e.target.value) } }
+          />
         </label>
       </div>
-      <button className="btn btn-primary" type="submit">
+      <button
+        className="btn btn-primary"
+        type="submit"
+        disabled={isArticlesLoading}
+      >
         Add Article
       </button>
     </ReactBootStrap.Form>
-  )
+  ))
 }
 
 export default ArticleForm
