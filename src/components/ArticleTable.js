@@ -12,14 +12,13 @@ const ArticleTable = () => {
     getArticles()
   }, [getArticles]);
 
-
   const renderBodyRow = (row, index) => {
     return (
       <tr key={index}>
         <td>{row.id}</td>
         <td>{row.name}</td>
         <td>{row.text}</td>
-        <td>{row.type}</td>
+        <td>{row.article_type}</td>
         <td>{row.created_at}</td>
         <td>{row.updated_at}</td>
       </tr>

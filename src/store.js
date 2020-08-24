@@ -1,6 +1,6 @@
 // import React from "react";
-import { addArticle, baseArticlesUrl } from "./article-service";
-import { addStory, baseStoriesUrl } from "./story-service";
+import { baseArticlesUrl } from "./article-service";
+import { baseStoriesUrl } from "./story-service";
 
 export function createStore() {
 
@@ -58,7 +58,19 @@ export function createStore() {
     async postArticles(newArticle) {
       this.isArticlesLoading = true;
       try {
-        this.articles.unshift((await addArticle(newArticle)).data);
+        fetch(baseArticlesUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(newArticle)
+        })
+          // .then(response => response.json())
+          // .then(jsonResponce => {
+          //   const data = jsonResponce.data
+          //   console.log(data);
+          //   this.addArticle(data)
+          // });
       } catch (e) {
         this.setError(e);
       }
@@ -110,7 +122,19 @@ export function createStore() {
     async postStories(newStory) {
       this.isStoriesLoading = true;
       try {
-        this.articles.unshift((await addStory(newStory)).data);
+        console.log(newStory)
+        fetch(baseStoriesUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(newStory)
+        }).then(response => response.json())
+          .then(jsonResponce => {
+            const data = jsonResponce.data
+            console.log(data);
+            this.addStory(data)
+          });
       } catch (e) {
         this.setError(e);
       }

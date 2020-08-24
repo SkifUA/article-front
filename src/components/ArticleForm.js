@@ -4,42 +4,24 @@ import { useDataStore } from "../context";
 import {useObserver} from "mobx-react";
 
 const ArticleForm = () => {
-  const { addArticle, isArticlesLoading } = useDataStore();
+  const { isArticlesLoading, postArticles } = useDataStore();
   const [name, setName] = useState('')
   const [text, setText] = useState('')
-  const [type, setType] = useState('')
+  const [article_type, setType] = useState('')
 
-  // const response = fetch('http://localhost:3000/articles', {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json'
-  //   },
-  //   body: JSON.stringify({
-  //     name,
-  //     text,
-  //     type
-  //   })
-  // });
-  //
-  // function addTodo(title) {
-  //   setTodos(todos.concat([{
-  //     title,
-  //     id: Date.now(),
-  //     completed: false
-  //   }]))
-  // }
 
-  const handleArticle = ({name, text, type}) => {
-    if (name !== '' && text !== '' && type !== '') {
-      addArticle(
-        {name, text, type}
+
+  const handleArticle = ({name, text, article_type}) => {
+    if (name !== '' && text !== '' && article_type !== '') {
+      postArticles(
+        {name, text, article_type}
       )
     }
   }
 
   return useObserver(() => (
     <ReactBootStrap.Form onSubmit={ e => {
-      handleArticle({name, text, type});
+      handleArticle({name, text, article_type});
       setType('');
       setText('');
       setName('');
@@ -74,7 +56,7 @@ const ArticleForm = () => {
             className="form-control"
             type="text"
             name="article-type"
-            value={type}
+            value={article_type}
             onChange={ e => { setType(e.target.value) } }
           />
         </label>

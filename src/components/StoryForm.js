@@ -5,13 +5,13 @@ import {useObserver} from "mobx-react";
 import MultiSelect from "react-multi-select-component";
 
 const StoryForm = () => {
-  const { addStory, articles, isStoriesLoading } = useDataStore();
+  const { postStories, articles, isStoriesLoading } = useDataStore();
   const [name, setName] = useState('')
   const [selectedArticles, setSelectedArticles] = useState([])
 
   const handleStory = ({name, selectedArticles}) => {
     if (name !== '') {
-      addStory({name, last_article: { id: selectedArticles.map((art) => { return art.id }) } })
+      postStories({name, article_ids: selectedArticles.map((art) => { return art.value }) })
     }
   }
 

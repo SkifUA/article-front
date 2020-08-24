@@ -76,16 +76,6 @@ export const headerList = [
 
 export const baseStoriesUrl = 'http://localhost:3000/stories';
 
-export const getStories = async () => {
-
-  return await fetch(baseStoriesUrl)
-    .then(response => response.json())
-    .then(stories => {
-      const res = stories.data
-      console.log(res)
-    })
-
-}
 
 export const addStory= async (newStory) => {
   await fetch(baseStoriesUrl, {
