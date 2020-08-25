@@ -1,6 +1,5 @@
 // import React from "react";
-import { baseArticlesUrl } from "./article-service";
-import { baseStoriesUrl } from "./story-service";
+import { baseArticlesUrl, baseStoriesUrl } from "./constants";
 
 export function createStore() {
 
@@ -65,12 +64,11 @@ export function createStore() {
           },
           body: JSON.stringify(newArticle)
         })
-          // .then(response => response.json())
-          // .then(jsonResponce => {
-          //   const data = jsonResponce.data
-          //   console.log(data);
-          //   this.addArticle(data)
-          // });
+          .then(response => response.json())
+          .then(jsonResponce => {
+            const data = jsonResponce.data
+            this.addArticle(data)
+          });
       } catch (e) {
         this.setError(e);
       }

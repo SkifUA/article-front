@@ -1,6 +1,50 @@
 
+export const websocketUrl = 'ws://localhost:3000/cable';
 
-export const headerList = [
+export const baseStoriesUrl = 'http://localhost:3000/stories';
+
+export const baseArticlesUrl = 'http://localhost:3000/articles';
+
+export const articleHeaderList = [
+  {
+    label: 'ID',
+    field: 'id',
+    class: '',
+    key: 'article-id'
+  },
+  {
+    label: 'Name',
+    field: 'name',
+    class: '',
+    key: 'article-name'
+  },
+  {
+    label: 'Text',
+    field: 'text',
+    class: '',
+    key: 'article-text'
+  },
+  {
+    label: 'Type',
+    field: 'article_type',
+    class: '',
+    key: 'article-type'
+  },
+  {
+    label: 'Created',
+    field: 'created_at',
+    class: '',
+    key: 'article-created'
+  },
+  {
+    label: 'Updated',
+    field: 'updated_at',
+    class: '',
+    key: 'article-updated'
+  }
+];
+
+export const storyHeaderList = [
   {
     label: 'ID',
     field: 'id',
@@ -72,19 +116,4 @@ export const headerList = [
     key: 'story-article-created',
     sortable: false
   }
-]
-
-export const baseStoriesUrl = 'http://localhost:3000/stories';
-
-
-export const addStory= async (newStory) => {
-  await fetch(baseStoriesUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      name: newStory.name,
-    })
-  });
-}
+];

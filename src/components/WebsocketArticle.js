@@ -1,5 +1,6 @@
-import React, {useEffect} from "react";
-import {useDataStore} from "../context";
+import React, { useEffect } from "react";
+import { useDataStore } from "../context";
+import { websocketUrl } from "../constants";
 
 
 const WebsocketArticle = () => {
@@ -11,7 +12,7 @@ const WebsocketArticle = () => {
         channel: 'ArticleCable'
       }
     };
-    const ws = new WebSocket('ws://localhost:3000/cable');
+    const ws = new WebSocket(websocketUrl);
 
     ws.onopen = () => {
       ws.send(JSON.stringify(subscribe));
