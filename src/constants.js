@@ -1,9 +1,10 @@
 
-export const WEBSOCKET_URL = 'ws://localhost:3000/cable';
+export const WEBSOCKET_URL = 'wss://valerii-article-api.herokuapp.com/cable';
 
-export const STORIES_URL = 'http://localhost:3000/stories';
+export const STORIES_URL = 'https://valerii-article-api.herokuapp.com/stories';
 
-export const ARTICLES_URL = 'http://localhost:3000/articles';
+export const ARTICLES_URL = 'https://valerii-article-api.herokuapp.com/articles';
+
 
 export const ARTICLES_HEADER_LIST = [
   {
