@@ -8,15 +8,21 @@ import ArticleTableHead from "./ArticleTableHead";
 
 
 const ArticleTable = () => {
-  const { articles, getArticles, addArticle }= useDataStore();
+  const { articles, getArticles, addArticle, deleteArticle, dropArticle }= useDataStore();
 
   useEffect( () => {
     getArticles()
   }, [getArticles]);
 
-  const handleReceivedArticle = response => {
+  const handleReceivedArticle = (response) => {
     addArticle(response.data);
   };
+  const handleDelete = (id) => {
+    deleteArticle(id)
+  }
+  const handleDrop = (response) => {
+    dropArticle(response.id)
+  }
 
   const renderBodyRow = (row, index) => {
     return (
@@ -27,6 +33,7 @@ const ArticleTable = () => {
         <td>{row.article_type}</td>
         <td>{row.created_at}</td>
         <td>{row.updated_at}</td>
+        <td><button onClick={ ()=>handleDelete(row.id)}>Delete</button></td>
       </tr>
     )
   }
@@ -36,6 +43,10 @@ const ArticleTable = () => {
       <ActionCable
         channel={{ channel: 'ArticlesChannel' }}
         onReceived={handleReceivedArticle}
+      />
+      <ActionCable
+        channel={{ channel: 'DeleteArticleChannel' }}
+        onReceived={handleDrop}
       />
       <ReactBootStrap.Table className="table table-bordered table-sortable" key="articles-table">
         <ArticleTableHead/>

@@ -70,6 +70,33 @@ export function createStore() {
       this.isArticlesLoading = false;
     },
 
+    dropArticle(id) {
+     const newArticles = this.articles.filter(h => h.id !== id);
+      this.articles.length = 0
+      this.articles.push(...newArticles)
+    },
+
+    async deleteArticle(id) {
+      this.isArticlesLoading = true;
+      try {
+        await fetch(ARTICLES_URL + `/${id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        })
+        //   .then(response => {
+        //   if(response.ok) {
+        //     this.dropArticle(id)
+        //   }
+        // })
+
+      } catch (e) {
+        this.setError(e);
+      }
+      this.isArticlesLoading = false;
+    },
+
     articleOrder: { field: 'id', order: 'asc' },
 
     setArticlesOrder(order) {
@@ -86,6 +113,33 @@ export function createStore() {
 
     addStory(story) {
       this.stories.push(story)
+    },
+
+    dropStory(id) {
+      const newStories = this.stories.filter(h => h.id !== id);
+      this.stories.length = 0
+      this.stories.push(...newStories)
+    },
+
+    async deleteStory(id) {
+      this.isStoriesLoading = true;
+      try {
+        await fetch(STORIES_URL + `/${id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        })
+          .then(response => {
+          if(response.ok) {
+            this.dropStory(id)
+          }
+        })
+
+      } catch (e) {
+        this.setError(e);
+      }
+      this.isStoriesLoading = false;
     },
 
     isStoriesLoading: false,
@@ -115,7 +169,6 @@ export function createStore() {
     async postStories(newStory) {
       this.isStoriesLoading = true;
       try {
-        console.log(newStory)
         fetch(STORIES_URL, {
           method: 'POST',
           headers: {
@@ -125,7 +178,6 @@ export function createStore() {
         }).then(response => response.json())
           .then(jsonResponce => {
             const data = jsonResponce.data
-            console.log(data);
             this.addStory(data)
           });
       } catch (e) {

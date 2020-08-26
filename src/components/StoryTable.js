@@ -6,11 +6,15 @@ import { useDataStore } from "../context";
 
 function StoryTable() {
 
-  const { stories, getStories } = useDataStore();
+  const { stories, getStories, deleteStory } = useDataStore();
 
   React.useEffect( () => {
     getStories()
   }, [getStories]);
+
+  const handleDelete = (id) => {
+    deleteStory(id)
+  }
 
   const renderBodyRow = (column, index) => {
     return (
@@ -27,6 +31,7 @@ function StoryTable() {
         <td>{column.last_article && column.last_article.text}</td>
         <td>{column.last_article && column.last_article.article_type}</td>
         <td>{column.last_article && column.last_article.created_at}</td>
+        <td><button onClick={ ()=>handleDelete(column.id)}>Delete</button></td>
       </tr>
     )
   }

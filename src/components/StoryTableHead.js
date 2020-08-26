@@ -33,7 +33,7 @@ const StoryTableHead = () => {
     <thead className="thead-light">
       <tr>
         <th colSpan="6">Story</th>
-        <th colSpan="5">Last Article</th>
+        <th colSpan="6">Last Article</th>
       </tr>
       <tr className="sortable">
         {
