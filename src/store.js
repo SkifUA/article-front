@@ -1,5 +1,5 @@
-// import React from "react";
-import { baseArticlesUrl, baseStoriesUrl } from "./constants";
+
+import { ARTICLES_URL, STORIES_URL } from "./constants";
 
 export function createStore() {
 
@@ -36,7 +36,7 @@ export function createStore() {
 
     async getArticles() {
       this.isArticlesLoading = true;
-      let url = `${baseArticlesUrl}?orders[${this.articleOrder.field}]=${this.articleOrder.order}`;
+      let url = `${ARTICLES_URL}?orders[${this.articleOrder.field}]=${this.articleOrder.order}`;
       url += this.searchName !== '' ? '&scopes[name_cant]=' + this.searchName : '';
       url += this.searchText !== '' ? '&scopes[text_cant]=' + this.searchText : '';
       url += this.searchType !== '' ? '&scopes[article_type_cant]=' + this.searchType : '';
@@ -57,18 +57,13 @@ export function createStore() {
     async postArticles(newArticle) {
       this.isArticlesLoading = true;
       try {
-        fetch(baseArticlesUrl, {
+        fetch(ARTICLES_URL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(newArticle)
-        })
-          .then(response => response.json())
-          .then(jsonResponce => {
-            const data = jsonResponce.data
-            this.addArticle(data)
-          });
+        });
       } catch (e) {
         this.setError(e);
       }
@@ -102,7 +97,7 @@ export function createStore() {
     async getStories() {
       this.isStoriesLoading = true;
       try {
-        await fetch(`${baseStoriesUrl}?orders[${this.storesOrder.field}]=${this.storesOrder.order}`)
+        await fetch(`${STORIES_URL}?orders[${this.storesOrder.field}]=${this.storesOrder.order}`)
           .then(response => response.json())
           .then(jsonResponce => {
             const data = jsonResponce.data
@@ -121,7 +116,7 @@ export function createStore() {
       this.isStoriesLoading = true;
       try {
         console.log(newStory)
-        fetch(baseStoriesUrl, {
+        fetch(STORIES_URL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

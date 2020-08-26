@@ -1,11 +1,11 @@
 
-export const websocketUrl = 'ws://valerii-article-api.herokuapp.com/cable';
+export const WEBSOCKET_URL = 'ws://localhost:3000/cable';
 
-export const baseStoriesUrl = 'https://valerii-article-api.herokuapp.com/stories';
+export const STORIES_URL = 'http://localhost:3000/stories';
 
-export const baseArticlesUrl = 'https://valerii-article-api.herokuapp.com/articles';
+export const ARTICLES_URL = 'http://localhost:3000/articles';
 
-export const articleHeaderList = [
+export const ARTICLES_HEADER_LIST = [
   {
     label: 'ID',
     field: 'id',
@@ -44,7 +44,7 @@ export const articleHeaderList = [
   }
 ];
 
-export const storyHeaderList = [
+export const STORIES_HEADER_LIST = [
   {
     label: 'ID',
     field: 'id',

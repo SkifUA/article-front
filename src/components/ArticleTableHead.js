@@ -1,11 +1,11 @@
 import React from "react";
-import { articleHeaderList } from "../constants";
+import { ARTICLES_HEADER_LIST } from "../constants";
 import { useDataStore } from "../context";
 
 
 const ArticleTableHead = () => {
   const { setArticlesOrder, getArticles } = useDataStore();
-  const [heads, setHeads] = React.useState(articleHeaderList)
+  const [heads, setHeads] = React.useState(ARTICLES_HEADER_LIST)
 
   function handleHeaders(clickedHead) {
     const newHeads = heads.map((head) => {

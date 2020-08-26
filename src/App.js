@@ -7,7 +7,6 @@ import StoryForm from "./components/StoryForm";
 import { DataStoreProvider } from "./context";
 import 'mobx-react-lite/batchingForReactDom';
 import ArticleSearch from "./components/ArticleSearch";
-import WebsocketArticle from "./components/WebsocketArticle"
 
 
 function App() {
@@ -15,7 +14,6 @@ function App() {
     <DataStoreProvider>
       <h1>Articles</h1>
       <ArticleSearch />
-      <WebsocketArticle />
       <ArticleTable />
       <ArticleForm />
       <br/>

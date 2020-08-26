@@ -1,16 +1,22 @@
 import React, {useEffect} from "react";
 import * as ReactBootStrap from "react-bootstrap"
 import { useObserver } from "mobx-react"
+import { ActionCableProvider, ActionCable } from 'react-actioncable-provider';
 import { useDataStore } from "../context";
+import { WEBSOCKET_URL } from "../constants";
 import ArticleTableHead from "./ArticleTableHead";
 
 
 const ArticleTable = () => {
-  const { articles, getArticles }= useDataStore();
+  const { articles, getArticles, addArticle }= useDataStore();
 
   useEffect( () => {
     getArticles()
   }, [getArticles]);
+
+  const handleReceivedArticle = response => {
+    addArticle(response.data);
+  };
 
   const renderBodyRow = (row, index) => {
     return (
@@ -26,12 +32,18 @@ const ArticleTable = () => {
   }
 
   return useObserver(() => (
-    <ReactBootStrap.Table className="table table-bordered table-sortable" key="articles-table">
-      <ArticleTableHead/>
-      <tbody >
-        {articles.map(renderBodyRow)}
-      </tbody>
-    </ReactBootStrap.Table>
+    <ActionCableProvider url={WEBSOCKET_URL}>
+      <ActionCable
+        channel={{ channel: 'ArticlesChannel' }}
+        onReceived={handleReceivedArticle}
+      />
+      <ReactBootStrap.Table className="table table-bordered table-sortable" key="articles-table">
+        <ArticleTableHead/>
+        <tbody >
+          {articles.map(renderBodyRow)}
+        </tbody>
+      </ReactBootStrap.Table>
+    </ActionCableProvider>
   ));
 }
 
