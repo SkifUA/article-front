@@ -112,7 +112,7 @@ export const STORIES_HEADER_LIST = [
   },
   {
     label: 'Type',
-    field: 'articles.type',
+    field: 'articles.article_type',
     class: '',
     key: 'story-article-type',
     sortable: false

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as ReactBootStrap from "react-bootstrap";
+import { useObserver } from "mobx-react";
 import { useDataStore } from "../context";
-import {useObserver} from "mobx-react";
 
 const ArticleForm = () => {
   const { isArticlesLoading, postArticles } = useDataStore();
