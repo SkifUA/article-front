@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect } from "react";
 import * as ReactBootStrap from "react-bootstrap"
 import { useObserver } from "mobx-react"
 import { useDataStore } from "../context";

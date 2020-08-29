@@ -6,11 +6,12 @@ import { useDataStore } from "../context";
 
 function StoryTable() {
 
-  const { stories, getStories, deleteStory } = useDataStore();
+  const { stories, getStories, deleteStory, getArticles } = useDataStore();
 
   React.useEffect( () => {
-    getStories()
-  }, [getStories]);
+    getStories();
+    getArticles();
+  }, [getStories, getArticles]);
 
   const handleDelete = (id) => {
     deleteStory(id)

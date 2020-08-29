@@ -1,9 +1,9 @@
 import React from "react";
 import {useDataStore} from "../context";
-import Input from "./Input";
+import Input from "./Elements/Input";
 
 const ArticleSearch = () => {
-  const { setSearchName, getArticles, setSearchText, setSearchType } = useDataStore();
+  const { setSearchArticleName, getArticles, setSearchArticleText, setSearchArticleType } = useDataStore();
 
   const [articleName, setArticleName] = React.useState('')
   const [articleType, setArticleType] = React.useState('')
@@ -12,21 +12,21 @@ const ArticleSearch = () => {
   const nameArticleSearchHandler = (event) => {
     setArticleName(event.target.value)
 
-    setSearchName(event.target.value)
+    setSearchArticleName(event.target.value)
     getArticles()
   }
 
   const typeArticleSearchHandler = (event) => {
     setArticleType(event.target.value)
 
-    setSearchType(event.target.value)
+    setSearchArticleType(event.target.value)
     getArticles()
   }
 
   const textArticleSearchHandler = (event) => {
     setArticleText(event.target.value)
 
-    setSearchText(event.target.value)
+    setSearchArticleText(event.target.value)
     getArticles()
   }
 

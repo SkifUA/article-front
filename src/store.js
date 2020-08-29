@@ -10,18 +10,26 @@ export function createStore() {
       this.articles.length = 0
     },
 
-    searchName: '',
-    searchText: '',
-    searchType: '',
+    searchArticleName: '',
+    searchArticleText: '',
+    searchArticleType: '',
+    searchArticleWherever: '',
+    articlesGroupBy: '',
 
-    setSearchName(input) {
-      this.searchName = input
+    setSearchArticleName(input) {
+      this.searchArticleName = input
     },
-    setSearchText(input) {
-      this.searchText = input
+    setSearchArticleText(input) {
+      this.searchArticleText = input
     },
-    setSearchType(input) {
-      this.searchType = input
+    setSearchArticleType(input) {
+      this.searchArticleType = input
+    },
+    setSearchArticleWherever(input) {
+      this.searchArticleWherever = input
+    },
+    setArticlesGroupBy(input) {
+      this.articlesGroupBy = input
     },
 
     addArticle(article) {
@@ -37,14 +45,28 @@ export function createStore() {
     async getArticles() {
       this.isArticlesLoading = true;
       let url = `${ARTICLES_URL}?orders[${this.articleOrder.field}]=${this.articleOrder.order}`;
-      url += this.searchName !== '' ? '&scopes[name_cant]=' + this.searchName : '';
-      url += this.searchText !== '' ? '&scopes[text_cant]=' + this.searchText : '';
-      url += this.searchType !== '' ? '&scopes[article_type_cant]=' + this.searchType : '';
+      if (this.searchArticleName !== '') {
+        url += '&scopes[name_cont]=' + this.searchArticleName;
+      }
+      if (this.searchArticleText !== '') {
+        url += '&scopes[text_cont]=' + this.searchArticleText;
+      }
+      if (this.searchArticleType !== '') {
+        url += '&scopes[article_type_cont]=' + this.searchArticleType;
+      }
+      if (this.searchArticleWherever !== '') {
+        url += '&scopes[wherever_cont]=' + this.searchArticleWherever;
+      }
+      if (this.articlesGroupBy !== '') {
+        url += '&group=' + this.articlesGroupBy;
+      }
+
       try {
         await fetch(url)
           .then(response => response.json())
           .then(jsonResponce => {
             const data = jsonResponce.data
+            console.log(data)
             this.articles.length = 0
             this.articles.push(...data)
           })
