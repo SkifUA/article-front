@@ -1,4 +1,4 @@
-import React, {useEffect } from "react";
+import React, {useEffect} from "react";
 import * as ReactBootStrap from "react-bootstrap"
 import { useObserver } from "mobx-react"
 import { useDataStore } from "../context";
@@ -17,7 +17,14 @@ const ArticleTable = () => {
   }
 
   const renderBodyRow = (row, index) => {
-    return (
+    const groupRow = (
+      <tr key={index}>
+        <td colSpan="1">Group: {row.group}</td>
+        <td colSpan="6">{row.group_value}</td>
+      </tr>
+    )
+
+    const defaultRow = (
       <tr key={index}>
         <td>{row.id}</td>
         <td>{row.name}</td>
@@ -28,6 +35,8 @@ const ArticleTable = () => {
         <td><button onClick={ ()=>handleDelete(row.id)}>Delete</button></td>
       </tr>
     )
+
+    return row.group ? groupRow : defaultRow
   }
 
   return useObserver(() => (

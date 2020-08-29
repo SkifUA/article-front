@@ -107,11 +107,6 @@ export function createStore() {
             'Content-Type': 'application/json'
           },
         })
-        //   .then(response => {
-        //   if(response.ok) {
-        //     this.dropArticle(id)
-        //   }
-        // })
 
       } catch (e) {
         this.setError(e);
@@ -128,6 +123,11 @@ export function createStore() {
 
     // STORIES
     stories: [],
+    storiesGroupBy: '',
+
+    setStoriesGroupBy(input) {
+      this.storiesGroupBy = input
+    },
 
     cleanStories() {
       this.stories.length = 0
@@ -157,7 +157,6 @@ export function createStore() {
             this.dropStory(id)
           }
         })
-
       } catch (e) {
         this.setError(e);
       }
@@ -173,7 +172,11 @@ export function createStore() {
     async getStories() {
       this.isStoriesLoading = true;
       try {
-        await fetch(`${STORIES_URL}?orders[${this.storesOrder.field}]=${this.storesOrder.order}`)
+        let url = `${STORIES_URL}?orders[${this.storesOrder.field}]=${this.storesOrder.order}`;
+        if (this.storiesGroupBy !== '') {
+          url += '&group=' + this.storiesGroupBy;
+        }
+        await fetch(url)
           .then(response => response.json())
           .then(jsonResponce => {
             const data = jsonResponce.data

@@ -18,7 +18,14 @@ function StoryTable() {
   }
 
   const renderBodyRow = (column, index) => {
-    return (
+    const groupRow = (
+      <tr key={index}>
+        <td colSpan="1">Group: {column.group}</td>
+        <td colSpan="10">{column.group_value}</td>
+      </tr>
+    );
+
+    const defaultRow = (
       <tr key={index}>
         <td>{column.id}</td>
         <td>{column.name}</td>
@@ -34,7 +41,9 @@ function StoryTable() {
         <td>{column.last_article && column.last_article.created_at}</td>
         <td><button onClick={ ()=>handleDelete(column.id)}>Delete</button></td>
       </tr>
-    )
+    );
+
+    return column.group ? groupRow : defaultRow
   }
 
   return useObserver(() => (

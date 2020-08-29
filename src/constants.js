@@ -78,13 +78,13 @@ export const STORIES_HEADER_LIST = [
     key: 'story-updated'
   },
   {
-    label: 'Count Types',
+    label: 'Types Count ',
     field: 'types_count',
     class: '',
     key: 'story-count-types'
   },
   {
-    label: 'Count Articles',
+    label: 'Articles Count',
     field: 'articles_count',
     class: '',
     key: 'story-count-articles'
