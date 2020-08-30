@@ -6,18 +6,25 @@ import { useDataStore } from "../context";
 
 function StoryTable() {
 
-  const { stories, getStories, deleteStory } = useDataStore();
+  const { stories, getStories, deleteStory, getArticles } = useDataStore();
 
   React.useEffect( () => {
-    getStories()
-  }, [getStories]);
+    getStories();
+    getArticles();
+  }, [getStories, getArticles]);
 
   const handleDelete = (id) => {
     deleteStory(id)
   }
 
   const renderBodyRow = (column, index) => {
-    return (
+    const groupRow = (
+      <tr className="row-group-name" key={index}>
+        <td colSpan="12">{column.group}: {column.group_value}</td>
+      </tr>
+    );
+
+    const defaultRow = (
       <tr key={index}>
         <td>{column.id}</td>
         <td>{column.name}</td>
@@ -33,7 +40,9 @@ function StoryTable() {
         <td>{column.last_article && column.last_article.created_at}</td>
         <td><button onClick={ ()=>handleDelete(column.id)}>Delete</button></td>
       </tr>
-    )
+    );
+
+    return column.group ? groupRow : defaultRow
   }
 
   return useObserver(() => (

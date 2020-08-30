@@ -17,7 +17,13 @@ const ArticleTable = () => {
   }
 
   const renderBodyRow = (row, index) => {
-    return (
+    const groupRow = (
+      <tr className="row-group-name" key={index}>
+        <td colSpan="7">{row.group}: {row.group_value}</td>
+      </tr>
+    )
+
+    const defaultRow = (
       <tr key={index}>
         <td>{row.id}</td>
         <td>{row.name}</td>
@@ -28,6 +34,8 @@ const ArticleTable = () => {
         <td><button onClick={ ()=>handleDelete(row.id)}>Delete</button></td>
       </tr>
     )
+
+    return row.group ? groupRow : defaultRow
   }
 
   return useObserver(() => (

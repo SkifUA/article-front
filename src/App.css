@@ -80,3 +80,7 @@
   border-top: 5px solid #333;
   border-bottom: 5px solid transparent;
 }
+
+.row-group-name {
+  font-weight: bold;
+}

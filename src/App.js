@@ -1,30 +1,27 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 import './App.css';
-import ArticleTable from "./components/ArticleTable";
-import ArticleForm from "./components/ArticleForm";
-import StoryTable from "./components/StoryTable";
-import StoryForm from "./components/StoryForm";
 import { DataStoreProvider } from "./context";
 import 'mobx-react-lite/batchingForReactDom';
-import ArticleSearch from "./components/ArticleSearch";
-import ApplicationWebsocket from "./components/ApplicationWebsocket";
-import DeleteApplicationWebsocket from "./components/DeleteApplicationWebsocket";
+import Articles from "./pages/Articles";
+import Stories from "./pages/Stories";
 
 
 function App() {
 
   return (
     <DataStoreProvider>
-      <ApplicationWebsocket />
-      <DeleteApplicationWebsocket/>
-      <h1>Articles</h1>
-      <ArticleSearch />
-      <ArticleTable />
-      <ArticleForm />
-      <br/>
-      <h1>Stories</h1>
-      <StoryTable />
-      <StoryForm />
+      <Router>
+        <Switch>
+          <Route path="/" exact>
+            <Stories />
+          </Route>
+          <Route path="/articles" exact>
+            <Articles/>
+          </Route>
+          <Redirect to="/" />
+        </Switch>
+      </Router>
     </DataStoreProvider>
   );
 }
