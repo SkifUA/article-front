@@ -19,9 +19,8 @@ function StoryTable() {
 
   const renderBodyRow = (column, index) => {
     const groupRow = (
-      <tr key={index}>
-        <td colSpan="1">Group: {column.group}</td>
-        <td colSpan="10">{column.group_value}</td>
+      <tr className="row-group-name" key={index}>
+        <td colSpan="12">{column.group}: {column.group_value}</td>
       </tr>
     );
 

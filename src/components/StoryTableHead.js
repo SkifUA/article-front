@@ -4,7 +4,7 @@ import { useDataStore } from "../context";
 
 
 const StoryTableHead = () => {
-  const { setStoriesOrder, getStories } = useDataStore();
+  const { setStoriesOrder, getStories, storiesGroupBy } = useDataStore();
   const [heads, setHeads] = React.useState(STORIES_HEADER_LIST)
 
   function handleHeaders(clickedHead) {
@@ -39,7 +39,7 @@ const StoryTableHead = () => {
         {
           heads.map((head) => (
             <th
-              className={`${head.sortable !== false ? 'sortable' : ''} ${head.class}`}
+              className={`${(head.sortable !== false && storiesGroupBy === '') || (storiesGroupBy === head.field ) ? 'sortable' : ''} ${head.class}`}
               key={`story-${head.field}`}
               onClick={() =>handleHeaders(head)}
             >

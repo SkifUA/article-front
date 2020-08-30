@@ -3,55 +3,27 @@ import {useDataStore} from "../context";
 import Input from "./Elements/Input";
 
 const ArticleSearch = () => {
-  const { setSearchArticleName, getArticles, setSearchArticleText, setSearchArticleType } = useDataStore();
+  const { setArticleNameOrTextSearch, getArticles } = useDataStore();
 
-  const [articleName, setArticleName] = React.useState('')
-  const [articleType, setArticleType] = React.useState('')
-  const [articleText, setArticleText] = React.useState('')
+  const [inputNameOrTextSearch, setInputNameOrTextSearch] = React.useState('');
 
-  const nameArticleSearchHandler = (event) => {
-    setArticleName(event.target.value)
+  const articleNameOrTextSearchHandler = (event) => {
+    setArticleNameOrTextSearch(event.target.value);
 
-    setSearchArticleName(event.target.value)
-    getArticles()
-  }
-
-  const typeArticleSearchHandler = (event) => {
-    setArticleType(event.target.value)
-
-    setSearchArticleType(event.target.value)
-    getArticles()
-  }
-
-  const textArticleSearchHandler = (event) => {
-    setArticleText(event.target.value)
-
-    setSearchArticleText(event.target.value)
+    setInputNameOrTextSearch(event.target.value);
     getArticles()
   }
 
 
   return (
-    <React.Fragment>
+    <div className="form-group">
       <Input
-        value={articleName}
-        label="Search Name"
-        placeholder="Search in Name "
-        handler={nameArticleSearchHandler}
+        value={inputNameOrTextSearch}
+        label="Search By Name or Text"
+        placeholder="By Name or Text "
+        handler={articleNameOrTextSearchHandler}
       />
-      <Input
-        value={articleType}
-        label="Search Type"
-        placeholder="Search in Type "
-        handler={typeArticleSearchHandler}
-      />
-      <Input
-        value={articleText}
-        label="Search Text"
-        placeholder="Search in Text "
-        handler={textArticleSearchHandler}
-      />
-    </React.Fragment>
+    </div>
   )
 }
 

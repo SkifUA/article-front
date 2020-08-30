@@ -10,25 +10,14 @@ export function createStore() {
       this.articles.length = 0
     },
 
-    searchArticleName: '',
-    searchArticleText: '',
-    searchArticleType: '',
-    searchArticleWherever: '',
+    articleNameOrTextSearch: '',
     articlesGroupBy: '',
 
-    setSearchArticleName(input) {
-      this.searchArticleName = input
-    },
-    setSearchArticleText(input) {
-      this.searchArticleText = input
-    },
-    setSearchArticleType(input) {
-      this.searchArticleType = input
-    },
-    setSearchArticleWherever(input) {
-      this.searchArticleWherever = input
+    setArticleNameOrTextSearch(input) {
+      this.articleNameOrTextSearch = input
     },
     setArticlesGroupBy(input) {
+      this.setArticlesOrder({ field: input, order: 'asc' })
       this.articlesGroupBy = input
     },
 
@@ -45,17 +34,8 @@ export function createStore() {
     async getArticles() {
       this.isArticlesLoading = true;
       let url = `${ARTICLES_URL}?orders[${this.articleOrder.field}]=${this.articleOrder.order}`;
-      if (this.searchArticleName !== '') {
-        url += '&scopes[name_cont]=' + this.searchArticleName;
-      }
-      if (this.searchArticleText !== '') {
-        url += '&scopes[text_cont]=' + this.searchArticleText;
-      }
-      if (this.searchArticleType !== '') {
-        url += '&scopes[article_type_cont]=' + this.searchArticleType;
-      }
-      if (this.searchArticleWherever !== '') {
-        url += '&scopes[wherever_cont]=' + this.searchArticleWherever;
+      if (this.articleNameOrTextSearch !== '') {
+        url += '&scopes[name_or_text_cont]=' + this.articleNameOrTextSearch;
       }
       if (this.articlesGroupBy !== '') {
         url += '&group=' + this.articlesGroupBy;
@@ -66,7 +46,7 @@ export function createStore() {
           .then(response => response.json())
           .then(jsonResponce => {
             const data = jsonResponce.data
-            console.log(data)
+            // console.log(data)
             this.articles.length = 0
             this.articles.push(...data)
           })
@@ -114,7 +94,7 @@ export function createStore() {
       this.isArticlesLoading = false;
     },
 
-    articleOrder: { field: 'id', order: 'asc' },
+    articleOrder: { field: 'articles.id', order: 'asc' },
 
     setArticlesOrder(order) {
       this.articleOrder = order
@@ -126,6 +106,7 @@ export function createStore() {
     storiesGroupBy: '',
 
     setStoriesGroupBy(input) {
+      this.setStoriesOrder({ field: input, order: 'asc' })
       this.storiesGroupBy = input
     },
 
@@ -180,6 +161,7 @@ export function createStore() {
           .then(response => response.json())
           .then(jsonResponce => {
             const data = jsonResponce.data
+            // console.log(data)
             this.stories.length = 0
             this.stories.push(...data)
           })
@@ -189,7 +171,6 @@ export function createStore() {
       }
       this.isStoriesLoading = false;
     },
-
 
     async postStories(newStory) {
       this.isStoriesLoading = true;
@@ -211,7 +192,7 @@ export function createStore() {
       this.isStoriesLoading = false;
     },
 
-    storesOrder: { field: 'id', order: 'asc' },
+    storesOrder: { field: 'stories.id', order: 'asc' },
 
     setStoriesOrder(order) {
       this.storesOrder = order

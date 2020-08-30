@@ -18,9 +18,8 @@ const ArticleTable = () => {
 
   const renderBodyRow = (row, index) => {
     const groupRow = (
-      <tr key={index}>
-        <td colSpan="1">Group: {row.group}</td>
-        <td colSpan="6">{row.group_value}</td>
+      <tr className="row-group-name" key={index}>
+        <td colSpan="7">{row.group}: {row.group_value}</td>
       </tr>
     )
 

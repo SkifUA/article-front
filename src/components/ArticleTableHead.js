@@ -4,7 +4,7 @@ import { useDataStore } from "../context";
 
 
 const ArticleTableHead = () => {
-  const { setArticlesOrder, getArticles } = useDataStore();
+  const { setArticlesOrder, getArticles, articlesGroupBy } = useDataStore();
   const [heads, setHeads] = React.useState(ARTICLES_HEADER_LIST)
 
   function handleHeaders(clickedHead) {
@@ -35,7 +35,7 @@ const ArticleTableHead = () => {
         {
           heads.map((head) => (
             <th
-              className={`${head.sortable !== false ? 'sortable' : ''} ${head.class}`}
+              className={`${(head.sortable !== false && articlesGroupBy === '') || (articlesGroupBy === head.field ) ? 'sortable' : ''} ${head.class}`}
               key={`article-${head.field}`}
               onClick={() =>handleHeaders(head)}
             >
