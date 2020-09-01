@@ -36,7 +36,7 @@ const Articles = () => {
         label="Sort By"
       />
       <ArticleTable />
-      <h3>Create article</h3>
+      <br/>
       <ArticleForm />
     </div>
   )

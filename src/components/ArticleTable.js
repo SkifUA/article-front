@@ -6,7 +6,7 @@ import ArticleTableHead from "./ArticleTableHead";
 
 
 const ArticleTable = () => {
-  const { articles, getArticles, deleteArticle }= useDataStore();
+  const { articles, getArticles, deleteArticle, updateArticleForm } = useDataStore();
 
   useEffect( () => {
     getArticles()
@@ -14,6 +14,14 @@ const ArticleTable = () => {
 
   const handleDelete = (id) => {
     deleteArticle(id)
+  }
+  const handleUpdate = (row) => {
+    updateArticleForm({
+      id: row.id,
+      name: row.name,
+      text: row.text,
+      article_type: row.article_type
+    })
   }
 
   const renderBodyRow = (row, index) => {
@@ -31,7 +39,10 @@ const ArticleTable = () => {
         <td>{row.article_type}</td>
         <td>{row.created_at}</td>
         <td>{row.updated_at}</td>
-        <td><button onClick={ ()=>handleDelete(row.id)}>Delete</button></td>
+        <td>
+          <button className="btn btn-warning" onClick={ ()=>handleUpdate(row)}>Edit</button>&nbsp;
+          <button className="btn btn-danger" onClick={ ()=>handleDelete(row.id)}>Delete</button>
+        </td>
       </tr>
     )
 

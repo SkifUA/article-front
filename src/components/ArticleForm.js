@@ -4,27 +4,27 @@ import { useObserver } from "mobx-react";
 import { useDataStore } from "../context";
 
 const ArticleForm = () => {
-  const { isArticlesLoading, postArticles } = useDataStore();
-  const [name, setName] = useState('')
-  const [text, setText] = useState('')
-  const [article_type, setType] = useState('')
+  const { isArticlesLoading, postArticles, articleForm, updateArticleForm, updateArticles } = useDataStore();
 
+  const resetForm = () => {
+    updateArticleForm({
+      id: null,
+      name: '',
+      text: '',
+      article_type: ''
+    });
 
-
-  const handleArticle = ({name, text, article_type}) => {
-    if (name !== '' && text !== '' && article_type !== '') {
-      postArticles(
-        {name, text, article_type}
-      )
+  }
+  const handleArticleSubmit = () => {
+    if (articleForm.name !== '' && articleForm.text !== '' && articleForm.article_type !== '') {
+      articleForm.id === null ? postArticles() : updateArticles()
     }
   }
 
   return useObserver(() => (
     <ReactBootStrap.Form onSubmit={ e => {
-      handleArticle({name, text, article_type});
-      setType('');
-      setText('');
-      setName('');
+      handleArticleSubmit();
+      resetForm();
       e.preventDefault();
     }}>
       <div className="form-group">
@@ -33,8 +33,8 @@ const ArticleForm = () => {
           <input
             className="form-control"
             type="text" name="name"
-            value={name}
-            onChange={ e => { setName(e.target.value) } }
+            value={articleForm.name}
+            onChange={ e => { updateArticleForm({ name: e.target.value }) } }
           />
         </label>
       </div>
@@ -44,8 +44,8 @@ const ArticleForm = () => {
           <input
             className="form-control"
             type="text" name="text"
-            value={text}
-            onChange={ e => { setText(e.target.value) } }
+            value={articleForm.text}
+            onChange={ e => { updateArticleForm({ text: e.target.value }) } }
           />
         </label>
       </div>
@@ -56,8 +56,8 @@ const ArticleForm = () => {
             className="form-control"
             type="text"
             name="article-type"
-            value={article_type}
-            onChange={ e => { setType(e.target.value) } }
+            value={articleForm.article_type}
+            onChange={ e => { updateArticleForm({ article_type: e.target.value }) } }
           />
         </label>
       </div>
@@ -66,7 +66,14 @@ const ArticleForm = () => {
         type="submit"
         disabled={isArticlesLoading}
       >
-        Add Article
+        { articleForm.id === null ? 'Add Article' : 'Update Article' }
+      </button>
+      &nbsp;
+      <button
+        className="btn btn-secondary"
+        onClick={ () => resetForm()}
+      >
+        Cancel
       </button>
     </ReactBootStrap.Form>
   ))

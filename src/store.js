@@ -12,6 +12,38 @@ export function createStore() {
 
     articleNameOrTextSearch: '',
     articlesGroupBy: '',
+    articleForm: {
+      id: null,
+      name: '',
+      text: '',
+      article_type: ''
+    },
+    updateArticles() {
+      const newArticles = this.articles.map((article) => {
+        if(article.id === this.articleForm.id) {
+          return Object.assign(article, this.articleForm)
+        } else {
+          return article
+        }
+      });
+      this.articles.length = 0;
+      this.articles.push(...newArticles);
+    },
+    updateArticleForm(input) {
+      if (input.id === null || input.id) {
+        this.articleForm.id = input.id;
+      }
+      if (typeof input.name === 'string') {
+        this.articleForm.name = input.name;
+      }
+      if (typeof input.text === 'string') {
+        this.articleForm.text = input.text;
+      }
+      if (typeof input.article_type === 'string') {
+        this.articleForm.article_type = input.article_type;
+      }
+    },
+
 
     setArticleNameOrTextSearch(input) {
       this.articleNameOrTextSearch = input
@@ -56,7 +88,7 @@ export function createStore() {
       this.isArticlesLoading = false;
     },
 
-    async postArticles(newArticle) {
+    async postArticles() {
       this.isArticlesLoading = true;
       try {
         fetch(ARTICLES_URL, {
@@ -64,7 +96,7 @@ export function createStore() {
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(newArticle)
+          body: JSON.stringify(this.articleForm)
         });
       } catch (e) {
         this.setError(e);
