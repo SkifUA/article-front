@@ -18,16 +18,39 @@ export function createStore() {
       text: '',
       article_type: ''
     },
-    updateArticles() {
+    async editArticle() {
+      this.isArticlesLoading = true;
+      try {
+        await fetch(ARTICLES_URL + `/${this.articleForm.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(this.articleForm)
+        })
+      } catch (e) {
+        this.setError(e);
+      }
+      this.isArticlesLoading = false;
+    },
+    updateArticles(data) {
       const newArticles = this.articles.map((article) => {
-        if(article.id === this.articleForm.id) {
-          return Object.assign(article, this.articleForm)
+        if(article.id === data.id) {
+          return Object.assign(article, data)
         } else {
           return article
         }
       });
       this.articles.length = 0;
       this.articles.push(...newArticles);
+    },
+    resetArticleForm() {
+      this.updateArticleForm({
+        id: null,
+        name: '',
+        text: '',
+        article_type: ''
+      })
     },
     updateArticleForm(input) {
       if (input.id === null || input.id) {
@@ -64,6 +87,7 @@ export function createStore() {
     },
 
     async getArticles() {
+      this.resetArticleForm();
       this.isArticlesLoading = true;
       let url = `${ARTICLES_URL}?orders[${this.articleOrder.field}]=${this.articleOrder.order}`;
       if (this.articleNameOrTextSearch !== '') {

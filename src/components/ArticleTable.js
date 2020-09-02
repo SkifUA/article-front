@@ -6,13 +6,14 @@ import ArticleTableHead from "./ArticleTableHead";
 
 
 const ArticleTable = () => {
-  const { articles, getArticles, deleteArticle, updateArticleForm } = useDataStore();
+  const { articles, getArticles, deleteArticle, updateArticleForm, articleForm, resetArticleForm } = useDataStore();
 
   useEffect( () => {
     getArticles()
   }, [getArticles]);
 
   const handleDelete = (id) => {
+    resetArticleForm();
     deleteArticle(id)
   }
   const handleUpdate = (row) => {
@@ -32,7 +33,7 @@ const ArticleTable = () => {
     )
 
     const defaultRow = (
-      <tr key={index}>
+      <tr key={index} className={articleForm.id === row.id ? 'edited-row' : '' }>
         <td>{row.id}</td>
         <td>{row.name}</td>
         <td>{row.text}</td>
@@ -40,8 +41,15 @@ const ArticleTable = () => {
         <td>{row.created_at}</td>
         <td>{row.updated_at}</td>
         <td>
-          <button className="btn btn-warning" onClick={ ()=>handleUpdate(row)}>Edit</button>&nbsp;
-          <button className="btn btn-danger" onClick={ ()=>handleDelete(row.id)}>Delete</button>
+          <button className="btn btn-warning"
+                  onClick={ ()=>handleUpdate(row)}
+          >Edit
+          </button>&nbsp;
+          <button
+            className="btn btn-danger"
+            onClick={ () => {if (window.confirm('Are you sure?')) { handleDelete(row.id) } } }
+          >Delete
+          </button>
         </td>
       </tr>
     )

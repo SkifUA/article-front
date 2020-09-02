@@ -38,7 +38,11 @@ function StoryTable() {
         <td>{column.last_article && column.last_article.text}</td>
         <td>{column.last_article && column.last_article.article_type}</td>
         <td>{column.last_article && column.last_article.created_at}</td>
-        <td><button onClick={ ()=>handleDelete(column.id)}>Delete</button></td>
+        <td><button
+          className="btn btn-danger"
+          onClick={ () => {if (window.confirm('Are you sure?')) { handleDelete(column.id) } } }
+        >Delete
+        </button></td>
       </tr>
     );
 

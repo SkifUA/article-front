@@ -3,15 +3,14 @@ import { useDataStore } from "../context";
 import {WEBSOCKET_URL} from "../constants";
 
 
-const ApplicationWebsocket = () => {
-  const { addArticle }= useDataStore();
+const UpdateApplicationWebsocket = () => {
+  const { updateArticles }= useDataStore();
 
   useEffect(() => {
     const ws = new WebSocket(WEBSOCKET_URL);
 
     ws.onopen = () => {
-      ws.send(JSON.stringify({"command": "subscribe","identifier":"{\"channel\":\"ArticlesChannel\"}"}))
-      // console.log('openArticlesChannel');
+      ws.send(JSON.stringify({"command": "subscribe","identifier":"{\"channel\":\"UpdateArticleChannel\"}"}))
     };
     ws.onmessage = (event) => {
 
@@ -19,7 +18,7 @@ const ApplicationWebsocket = () => {
       const message = response.message
 
       if (message && typeof message.data == 'object') {
-        addArticle(message.data);
+        updateArticles(message.data);
       }
 
     };
@@ -30,9 +29,9 @@ const ApplicationWebsocket = () => {
     return () => {
       ws.close();
     };
-  }, [addArticle]);
+  }, [updateArticles]);
 
   return (<div/>)
 }
 
-export default ApplicationWebsocket;
+export default UpdateApplicationWebsocket;

@@ -1,30 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import * as ReactBootStrap from "react-bootstrap";
 import { useObserver } from "mobx-react";
 import { useDataStore } from "../context";
 
 const ArticleForm = () => {
-  const { isArticlesLoading, postArticles, articleForm, updateArticleForm, updateArticles } = useDataStore();
+  const { isArticlesLoading, postArticles, articleForm, updateArticleForm, editArticle, resetArticleForm } = useDataStore();
 
-  const resetForm = () => {
-    updateArticleForm({
-      id: null,
-      name: '',
-      text: '',
-      article_type: ''
-    });
-
-  }
   const handleArticleSubmit = () => {
     if (articleForm.name !== '' && articleForm.text !== '' && articleForm.article_type !== '') {
-      articleForm.id === null ? postArticles() : updateArticles()
+      if (articleForm.id === null) {
+        postArticles()
+      } else {
+        editArticle()
+      }
     }
   }
 
   return useObserver(() => (
     <ReactBootStrap.Form onSubmit={ e => {
       handleArticleSubmit();
-      resetForm();
+      resetArticleForm();
       e.preventDefault();
     }}>
       <div className="form-group">
@@ -71,7 +66,7 @@ const ArticleForm = () => {
       &nbsp;
       <button
         className="btn btn-secondary"
-        onClick={ () => resetForm()}
+        onClick={ () => resetArticleForm()}
       >
         Cancel
       </button>

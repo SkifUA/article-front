@@ -84,3 +84,8 @@
 .row-group-name {
   font-weight: bold;
 }
+
+tr.edited-row {
+  color: red;
+  font-weight: bold;
+}

@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import { useDataStore } from "../context";
 import ApplicationWebsocket from "../components/ApplicationWebsocket";
 import DeleteApplicationWebsocket from "../components/DeleteApplicationWebsocket";
+import UpdateApplicationWebsocket from "../components/UpdateApplicationWebsocket";
 import ArticleSearch from "../components/ArticleSearch";
 import ArticleTable from "../components/ArticleTable";
 import ArticleForm from "../components/ArticleForm";
@@ -25,6 +26,7 @@ const Articles = () => {
     <div>
       <ApplicationWebsocket />
       <DeleteApplicationWebsocket/>
+      <UpdateApplicationWebsocket />
       <p><Link to="/">to stories</Link></p>
       <h1>Articles</h1>
       <ArticleSearch />
